@@ -28,6 +28,7 @@ public class Ventana extends JFrame {
     private DefaultTableModel modeloT;
     private Hash[] tablaHash;
     private File archivo;
+    private Auto autoSeleccionado;
 
     //Definición de botones
     JButton bInsertar = new JButton();
@@ -41,6 +42,9 @@ public class Ventana extends JFrame {
     JTextField campoPlacasDatos = new JTextField();
     JTextField campoNombreDatos = new JTextField();
     JTextField campoTiempoDatos = new JTextField();
+    
+    //Definición de etiquetas
+    JLabel ePrecioDatos = new JLabel();
 
     public static final int TAM = 101;
 
@@ -165,8 +169,7 @@ public class Ventana extends JFrame {
         eTiempoDatos.setFont(new Font("Roboto", 0, 15));
         panelDatos.add(eTiempoDatos);
 
-        //Etiqueta de Placas
-        JLabel ePrecioDatos = new JLabel();
+        //Etiqueta de Precio
         ePrecioDatos.setText(""); //Pnatilla al imprimir valor "Total: $ + precio"
         ePrecioDatos.setBounds(20, 360, 150, 20);
         ePrecioDatos.setHorizontalAlignment(SwingConstants.CENTER);
@@ -241,6 +244,33 @@ public class Ventana extends JFrame {
 
         bBuscar.addActionListener((e) -> {
 
+        });
+        
+        tabla.getSelectionModel().addListSelectionListener((e) -> {
+            
+            int clave = (int)tabla.getValueAt(tabla.getSelectedRow(), 0);
+            autoSeleccionado = tablaHash[clave].getDato();
+            
+            if(autoSeleccionado != null){
+                campoNombreDatos.setText(autoSeleccionado.getNombre());
+                campoPlacasDatos.setText(autoSeleccionado.getPlacas());
+                campoTiempoDatos.setText(autoSeleccionado.getTiempo() + "");
+                if(autoSeleccionado.getPrecio() != 0){
+                    ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
+                }
+            }else{
+                campoNombreDatos.setText("");
+                campoPlacasDatos.setText("");
+                campoTiempoDatos.setText("");
+                ePrecioDatos.setText("");
+            }
+        });
+        
+        bCalcPrecio.addActionListener((e) -> {
+            int tiempo = Integer.parseInt(campoTiempoDatos.getText());
+            autoSeleccionado.setTiempo(tiempo);
+            autoSeleccionado.calcularPrecio();
+            ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
         });
     }
 
