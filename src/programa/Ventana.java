@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,15 +28,15 @@ public class Ventana extends JFrame {
     private DefaultTableModel modeloT;
     private Hash[] tablaHash;
     private File archivo;
-    
+
     //Definición de botones
     JButton bInsertar = new JButton();
     JButton bBuscar = new JButton();
     JButton bEliminar = new JButton();
-    
+
     //Definición de cuadros de texto
     JTextField campoPlacas = new JTextField();
-    JTextField campoNombre = new JTextField();    
+    JTextField campoNombre = new JTextField();
 
     public static final int TAM = 101;
 
@@ -51,11 +52,11 @@ public class Ventana extends JFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
-        
+
         //Declaración del panel de datos
         panelDatos = new JPanel();
         panelDatos.setLayout(null);
-        
+
         panelDatos.setBounds(275, 140, 190, 410);
         panelDatos.setBackground(Color.GRAY);
         panel.add(panelDatos);
@@ -70,7 +71,8 @@ public class Ventana extends JFrame {
         iniciarEtiquetas();
         iniciarCuadrosTexto();
         iniciarTabla();
-//        leer();   //Reservado para cuando se implementen las acciones de los botones
+        leer();   //Reservado para cuando se implementen las acciones de los botones
+        eventos();
     }
 
     private void iniciarBotones() {
@@ -80,13 +82,13 @@ public class Ventana extends JFrame {
         bInsertar.setForeground(Color.white);
         bInsertar.setFont(new Font("Roboto", 0, 15));
         panel.add(bInsertar);
-        
+
         bBuscar.setText("Buscar");
         bBuscar.setBounds(275, 50, 190, 30);
         bBuscar.setBackground(Color.decode("#FCC00D"));
         bBuscar.setFont(new Font("Roboto", 0, 15));
         panel.add(bBuscar);
-        
+
         bEliminar.setText("Eliminar");
         bEliminar.setBounds(275, 90, 190, 30);
         bEliminar.setBackground(Color.decode("#DC3445"));
@@ -139,6 +141,28 @@ public class Ventana extends JFrame {
         panel.add(scroll);
     }
 
+    private void eventos() {
+        bInsertar.addActionListener((e) -> {
+            String nombre = campoNombre.getText();
+            String placas = campoPlacas.getText();
+            if (!nombre.replaceAll(" ", "").equals("") && !placas.replaceAll(" ", "").equals("")) {
+                Auto auto = new Auto(placas, nombre);
+                Hash.insertaHash(tablaHash, auto);
+                escribir();
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes de rellenar todos los campos");
+            }
+        });
+
+        bEliminar.addActionListener((e) -> {
+            
+        });
+
+        bBuscar.addActionListener((e) -> {
+            
+        });
+    }
+
     private void leer() {
         if (archivo.exists()) {
             FileInputStream archivoLectura;
@@ -148,9 +172,14 @@ public class Ventana extends JFrame {
                 leer = new ObjectInputStream(archivoLectura);
                 Hash celda;
                 int i = 0;
+                modeloT.setRowCount(0);
                 while (i < tablaHash.length) {
                     celda = (Hash) leer.readObject();
                     tablaHash[i] = celda;
+                    if (i < tablaHash.length - 1) {
+                        Object[] fila = {i, tablaHash[i].getDato()};
+                        modeloT.addRow(fila);
+                    }
                     i++;
                 }
                 leer.close();
@@ -164,6 +193,7 @@ public class Ventana extends JFrame {
                 for (int i = 0; i < tablaHash.length; i++) {
                     tablaHash[i] = new Hash();
                 }
+                tablaHash[tablaHash.length-1].setEstado(2);
                 escribir();
             } catch (IOException ex) {
                 System.err.println(ex);
@@ -179,8 +209,11 @@ public class Ventana extends JFrame {
         try {
             archivoEscritura = new FileOutputStream(archivo, false);
             escribir = new ObjectOutputStream(archivoEscritura);
-            for (Hash hash : tablaHash) {
-                escribir.writeObject(hash);
+            modeloT.setRowCount(0);
+            for (int i = 0; i < tablaHash.length; i++) {
+                escribir.writeObject(tablaHash[i]);
+                Object[] fila = {i, tablaHash[i].getDato()};
+                modeloT.addRow(fila);
             }
             escribir.close();
             archivoEscritura.close();
