@@ -43,7 +43,7 @@ public class Ventana extends JFrame {
     JTextField campoPlacasDatos = new JTextField();
     JTextField campoNombreDatos = new JTextField();
     JTextField campoTiempoDatos = new JTextField();
-    
+
     //Definición de etiquetas
     JLabel ePrecioDatos = new JLabel();
 
@@ -197,7 +197,7 @@ public class Ventana extends JFrame {
         campoNombreDatos.setHorizontalAlignment(SwingConstants.CENTER);
         campoNombreDatos.setForeground(Color.red);
         panelDatos.add(campoNombreDatos);
-        
+
         //Campo de texto para placas
         campoPlacasDatos.setBounds(20, 155, 150, 30);
         campoPlacasDatos.setEditable(false);
@@ -250,7 +250,7 @@ public class Ventana extends JFrame {
                     campoNombre.setText("");
                     campoPlacas.setText("");
                     JOptionPane.showMessageDialog(null, "El dato se ha eliminado");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Dato no encontrado");
                 }
             } else {
@@ -267,28 +267,28 @@ public class Ventana extends JFrame {
                     JOptionPane.showMessageDialog(null, "El dato fue encontrado en el indice: " + estado);
                     campoNombre.setText("");
                     campoPlacas.setText("");
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Dato no encontrado");
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Debes de ingresar las placas del auto");
             }
         });
-        
+
         tabla.getSelectionModel().addListSelectionListener((e) -> {
-            
-            if(tabla.getSelectedRow() > -1){
-                int clave = (int)tabla.getValueAt(tabla.getSelectedRow(), 0);
+
+            if (tabla.getSelectedRow() > -1) {
+                int clave = (int) tabla.getValueAt(tabla.getSelectedRow(), 0);
                 autoSeleccionado = tablaHash[clave].getDato();
 
-                if(autoSeleccionado != null){
+                if (autoSeleccionado != null) {
                     campoNombreDatos.setText(autoSeleccionado.getNombre());
                     campoPlacasDatos.setText(autoSeleccionado.getPlacas());
                     campoTiempoDatos.setText(autoSeleccionado.getTiempo() + "");
-                    if(autoSeleccionado.getPrecio() != 0){
+                    if (autoSeleccionado.getPrecio() != 0) {
                         ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
                     }
-                }else{
+                } else {
                     campoNombreDatos.setText("");
                     campoPlacasDatos.setText("");
                     campoTiempoDatos.setText("");
@@ -296,7 +296,7 @@ public class Ventana extends JFrame {
                 }
             }
         });
-        
+
         bCalcPrecio.addActionListener((e) -> {
             int tiempo = Integer.parseInt(campoTiempoDatos.getText());
             autoSeleccionado.setTiempo(tiempo);
@@ -356,11 +356,7 @@ public class Ventana extends JFrame {
             modeloT.setRowCount(0);
             for (int i = 0; i < tablaHash.length; i++) {
                 escribir.writeObject(tablaHash[i]);
-                if (tablaHash[i].getEstado() == 1) {
-                    auto = null;
-                } else {
-                    auto = tablaHash[i].getDato();
-                }
+                auto = tablaHash[i].getDato();
                 if (i < tablaHash.length - 1) {
                     Object[] fila = {i, auto};
                     modeloT.addRow(fila);
