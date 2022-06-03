@@ -1,10 +1,16 @@
 package datos;
 
-public class Hash {
+import java.io.Serializable;
 
-    int dato;
-    int estado; //0 = Vacío, 1 = Eliminado, 2 = Ocupado
+public class Hash implements Serializable{
+    
+    private int dato;
+    private int estado; //0 = Vacío, 1 = Eliminado, 2 = Ocupado
 
+    public Hash(){
+        estado = 0;
+    }
+    
     static int funcion(int n, int m) {
         return ((n + 1) % m);
     }
@@ -58,7 +64,7 @@ public class Hash {
     }
 
     static int eliminaHash(Hash[] h, int n) {
-        int m = h.length;
+//        int m = h.length;
         int i = buscaHash(h, n);
         if (i == -1) {
             return -1;
@@ -116,4 +122,27 @@ public class Hash {
         }
     }
 */
+
+    public int getDato() {
+        return dato;
+    }
+
+    public void setDato(int dato) {
+        this.dato = dato;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "Hash{" + "dato=" + dato + ", estado=" + estado + '}';
+    }
+    
+    
 }
