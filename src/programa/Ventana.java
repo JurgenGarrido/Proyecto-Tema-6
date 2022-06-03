@@ -155,7 +155,8 @@ public class Ventana extends JFrame {
                     tablaHash[i] = celda;
                     i++;
                 }
-
+                leer.close();
+                archivoLectura.close();
             } catch (IOException | ClassNotFoundException ex) {
                 System.err.println(ex);
             }
