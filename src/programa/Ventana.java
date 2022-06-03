@@ -218,7 +218,7 @@ public class Ventana extends JFrame {
         scroll.setBounds(20, 140, 235, 410);
 
         //Columnas de la tabla
-        String[] columnas = new String[]{"Clave", "Valores"};
+        String[] columnas = new String[]{"Espacio", "Propietario"};
         modeloT.setColumnIdentifiers(columnas);
         tabla.setModel(modeloT);
         tabla.getTableHeader().setReorderingAllowed(false);
@@ -255,13 +255,13 @@ public class Ventana extends JFrame {
                     escribir();
                     campoNombre.setText("");
                     campoPlacas.setText("");
-                    JOptionPane.showMessageDialog(null, "El dato se ha eliminado");
+                    JOptionPane.showMessageDialog(null, "Auto eliminado");
                     campoNombreDatos.setText("");
                     campoPlacasDatos.setText("");
                     campoTiempoDatos.setText("");
                     ePrecioDatos.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Dato no encontrado");
+                    JOptionPane.showMessageDialog(null, "Auto no encontrado en el estacionamiento");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Debes de ingresar las placas del auto");
@@ -274,11 +274,11 @@ public class Ventana extends JFrame {
                 int estado = Hash.buscaHash(tablaHash, Auto.generarClave(placas.toUpperCase()));
                 if (estado != -1) {
                     tabla.changeSelection(estado, 0, false, false);
-                    JOptionPane.showMessageDialog(null, "El dato fue encontrado en el indice: " + estado);
+                    JOptionPane.showMessageDialog(null, "El auto se encuentra en el espacio NO." + (estado+1));
                     campoNombre.setText("");
                     campoPlacas.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Dato no encontrado");
+                    JOptionPane.showMessageDialog(null, "Auto no encontrado en el estacionamiento");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Debes de ingresar las placas del auto");
@@ -289,7 +289,7 @@ public class Ventana extends JFrame {
 
             if (tabla.getSelectedRow() > -1) {
                 int clave = (int) tabla.getValueAt(tabla.getSelectedRow(), 0);
-                autoSeleccionado = tablaHash[clave].getDato();
+                autoSeleccionado = tablaHash[clave-1].getDato();
 
                 if (autoSeleccionado != null) {
                     campoNombreDatos.setText(autoSeleccionado.getNombre());
@@ -334,7 +334,7 @@ public class Ventana extends JFrame {
                     celda = (Hash) leer.readObject();
                     tablaHash[i] = celda;
                     if (i < tablaHash.length - 1) {
-                        Object[] fila = {i, tablaHash[i].getDato()};
+                        Object[] fila = {i+1, tablaHash[i].getDato()};
                         modeloT.addRow(fila);
                     }
                     i++;
@@ -372,7 +372,7 @@ public class Ventana extends JFrame {
                 escribir.writeObject(tablaHash[i]);
                 auto = tablaHash[i].getDato();
                 if (i < tablaHash.length - 1) {
-                    Object[] fila = {i, auto};
+                    Object[] fila = {i+1, auto};
                     modeloT.addRow(fila);
                 }
             }
