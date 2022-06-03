@@ -12,11 +12,11 @@ public class Hash implements Serializable{
         estado = 0;
     }
     
-    static int funcion(int n, int m) {
+    public static int funcion(int n, int m) {
         return ((n + 1) % m);
     }
 
-    static void insertaHash(Hash[] h, Auto n) {
+    public static void insertaHash(Hash[] h, Auto n) {
         int m = h.length;
         boolean i, rep;
         rep = i = false;
@@ -39,13 +39,13 @@ public class Hash implements Serializable{
             }
         } while (j < m && !i);
         if (i) {
-            javax.swing.JOptionPane.showMessageDialog(null, "¡Elemento insertado con éxito!");
+            javax.swing.JOptionPane.showMessageDialog(null, "Elemento insertado con éxito en el indice: " + j);
         } else {
             javax.swing.JOptionPane.showMessageDialog(null, "¡Tabla llena!");
         }
     }
 
-    static int buscaHash(Hash[] h, int n) {
+    public static int buscaHash(Hash[] h, int n) {
         int m = h.length;
         int j = funcion(n, m);
         while (j < m) {
@@ -64,7 +64,7 @@ public class Hash implements Serializable{
         return -1;
     }
 
-    static int eliminaHash(Hash[] h, int n) {
+    public static int eliminaHash(Hash[] h, int n) {
 //        int m = h.length;
         int i = buscaHash(h, n);
         if (i == -1) {

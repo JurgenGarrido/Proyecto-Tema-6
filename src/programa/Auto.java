@@ -1,6 +1,8 @@
 package programa;
 
-public class Auto {
+import java.io.Serializable;
+
+public class Auto implements Serializable{
     
     private String placas, nombre;
     private int precio;
@@ -64,4 +66,11 @@ public class Auto {
         //Se obtiene el precio dado el tiempo ocupado por el auto (Tiempo en horas)
         this.precio = TARIFA * this.tiempo;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
 }
