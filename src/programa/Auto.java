@@ -4,7 +4,7 @@ public class Auto {
     
     private String placas, nombre;
     private int precio;
-    private int TARIFA = 12;    //Tarifa aplicada por cada hora transcurrida
+    private static final int TARIFA = 12;    //Tarifa aplicada por cada hora transcurrida
     private int tiempo;
 
     public Auto(String placas, String nombre) {

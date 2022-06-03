@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -111,7 +110,6 @@ public class Ventana extends JFrame {
 
     private void iniciarTabla() {
         modeloT = new DefaultTableModel();
-        tabla = new JTable(modeloT);
         JScrollPane scroll = new JScrollPane(tabla);
         scroll.setBounds(5, 140, 250, 410);
         
