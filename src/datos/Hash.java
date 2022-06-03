@@ -1,10 +1,11 @@
 package datos;
 
 import java.io.Serializable;
+import programa.Auto;
 
 public class Hash implements Serializable{
     
-    private int dato;
+    private Auto dato;
     private int estado; //0 = Vacío, 1 = Eliminado, 2 = Ocupado
 
     public Hash(){
@@ -15,12 +16,12 @@ public class Hash implements Serializable{
         return ((n + 1) % m);
     }
 
-    static void insertaHash(Hash[] h, int n) {
+    static void insertaHash(Hash[] h, Auto n) {
         int m = h.length;
         boolean i, rep;
         rep = i = false;
         int r, j;
-        r = j = funcion(n, m);
+        r = j = funcion(Auto.generarClave(n.getPlacas()), m);
         do {
             if (h[j].estado == 0 || h[j].estado == 1) {
                 h[j].dato = n;
@@ -50,7 +51,7 @@ public class Hash implements Serializable{
         while (j < m) {
             if (h[j].estado == 0) {
                 return -1;
-            } else if (h[j].dato == n) {
+            } else if (Auto.generarClave(h[j].dato.getPlacas()) == n) {
                 if (h[j].estado == 1) {
                     return -1;
                 } else {
@@ -123,11 +124,11 @@ public class Hash implements Serializable{
     }
 */
 
-    public int getDato() {
+    public Auto getDato() {
         return dato;
     }
 
-    public void setDato(int dato) {
+    public void setDato(Auto dato) {
         this.dato = dato;
     }
 
