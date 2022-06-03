@@ -225,6 +225,10 @@ public class Ventana extends JFrame {
         javax.swing.table.TableCellRenderer renderers = tabla.getDefaultRenderer(java.lang.String.class);
         ((javax.swing.JLabel) renderers).setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.setDefaultEditor(tabla.getColumnClass(i), null);
+        }
+        
         panel.add(scroll);
     }
 
@@ -293,6 +297,8 @@ public class Ventana extends JFrame {
                     campoTiempoDatos.setText(autoSeleccionado.getTiempo() + "");
                     if (autoSeleccionado.getPrecio() != 0) {
                         ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
+                    }else{
+                        ePrecioDatos.setText("");
                     }
                 } else {
                     campoNombreDatos.setText("");
