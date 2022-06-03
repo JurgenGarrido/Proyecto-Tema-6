@@ -228,22 +228,50 @@ public class Ventana extends JFrame {
     private void eventos() {
         bInsertar.addActionListener((e) -> {
             String nombre = campoNombre.getText();
-            String placas = campoPlacas.getText();
-            if (!nombre.replaceAll(" ", "").equals("") && !placas.replaceAll(" ", "").equals("")) {
-                Auto auto = new Auto(placas, nombre);
+            String placas = campoPlacas.getText().replaceAll(" ", "");
+            if (!nombre.replaceAll(" ", "").equals("") && !placas.equals("")) {
+                Auto auto = new Auto(placas.toUpperCase(), nombre);
                 Hash.insertaHash(tablaHash, auto);
                 escribir();
+                campoNombre.setText("");
+                campoPlacas.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "Debes de rellenar todos los campos");
             }
         });
 
         bEliminar.addActionListener((e) -> {
-
+            String placas = campoPlacas.getText().replaceAll(" ", "");
+            if (!placas.equals("")) {
+                int estado = Hash.eliminaHash(tablaHash, Auto.generarClave(placas.toUpperCase()));
+                if (estado != -1) {
+                    escribir();
+                    campoNombre.setText("");
+                    campoPlacas.setText("");
+                    JOptionPane.showMessageDialog(null, "El dato se ha eliminado");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Dato no encontrado");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debes de ingresar las placas del auto");
+            }
         });
 
         bBuscar.addActionListener((e) -> {
-
+            String placas = campoPlacas.getText().replaceAll(" ", "");
+            if (!placas.equals("")) {
+                int estado = Hash.buscaHash(tablaHash, Auto.generarClave(placas.toUpperCase()));
+                if (estado != -1) {
+                    tabla.changeSelection(estado, 0, false, false);
+                    JOptionPane.showMessageDialog(null, "El dato fue encontrado en el indice: " + estado);
+                    campoNombre.setText("");
+                    campoPlacas.setText("");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Dato no encontrado");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Debes de ingresar las placas del auto");
+            }
         });
         
         tabla.getSelectionModel().addListSelectionListener((e) -> {
@@ -320,11 +348,17 @@ public class Ventana extends JFrame {
         try {
             archivoEscritura = new FileOutputStream(archivo, false);
             escribir = new ObjectOutputStream(archivoEscritura);
+            Auto auto;
             modeloT.setRowCount(0);
             for (int i = 0; i < tablaHash.length; i++) {
                 escribir.writeObject(tablaHash[i]);
+                if (tablaHash[i].getEstado() == 1) {
+                    auto = null;
+                } else {
+                    auto = tablaHash[i].getDato();
+                }
                 if (i < tablaHash.length - 1) {
-                    Object[] fila = {i, tablaHash[i].getDato()};
+                    Object[] fila = {i, auto};
                     modeloT.addRow(fila);
                 }
             }
