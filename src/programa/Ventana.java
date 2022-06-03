@@ -155,9 +155,6 @@ public class Ventana extends JFrame {
                     tablaHash[i] = celda;
                     i++;
                 }
-                for (Hash hash : tablaHash) {
-                    System.out.println(hash);
-                }
 
             } catch (IOException | ClassNotFoundException ex) {
                 System.err.println(ex);
