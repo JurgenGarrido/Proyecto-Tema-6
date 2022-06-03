@@ -310,11 +310,13 @@ public class Ventana extends JFrame {
         });
 
         bCalcPrecio.addActionListener((e) -> {
-            int tiempo = Integer.parseInt(campoTiempoDatos.getText());
-            autoSeleccionado.setTiempo(tiempo);
-            autoSeleccionado.calcularPrecio();
-            ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
-            escribir();
+            if(autoSeleccionado != null){
+                int tiempo = Integer.parseInt(campoTiempoDatos.getText());
+                autoSeleccionado.setTiempo(tiempo);
+                autoSeleccionado.calcularPrecio();
+                ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
+                escribir();
+            }
         });
     }
 
