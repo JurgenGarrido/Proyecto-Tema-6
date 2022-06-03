@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class Ventana extends JFrame {
@@ -160,7 +161,7 @@ public class Ventana extends JFrame {
         ePlacasDatos.setFont(new Font("Roboto", 0, 15));
         panelDatos.add(ePlacasDatos);
 
-        //Etiqueta de Placas
+        //Etiqueta de Tiempo
         JLabel eTiempoDatos = new JLabel();
         eTiempoDatos.setText("Tiempo transcurrido");
         eTiempoDatos.setBounds(20, 205, 150, 20);
@@ -190,19 +191,19 @@ public class Ventana extends JFrame {
         panel.add(campoNombre);
 
         //CAMPOS DE PANEL DE DATOS
-        //Campo de texto para placas
-        campoPlacasDatos.setBounds(20, 75, 150, 30);
-        campoPlacasDatos.setEditable(false);
-        campoPlacasDatos.setHorizontalAlignment(SwingConstants.CENTER);
-        campoPlacasDatos.setForeground(Color.red);
-        panelDatos.add(campoPlacasDatos);
-
         //Campo de texto para nombre
-        campoNombreDatos.setBounds(20, 155, 150, 30);
+        campoNombreDatos.setBounds(20, 75, 150, 30);
         campoNombreDatos.setEditable(false);
         campoNombreDatos.setHorizontalAlignment(SwingConstants.CENTER);
         campoNombreDatos.setForeground(Color.red);
         panelDatos.add(campoNombreDatos);
+        
+        //Campo de texto para placas
+        campoPlacasDatos.setBounds(20, 155, 150, 30);
+        campoPlacasDatos.setEditable(false);
+        campoPlacasDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        campoPlacasDatos.setForeground(Color.red);
+        panelDatos.add(campoPlacasDatos);
 
         //Campo de texto para tiempo
         campoTiempoDatos.setBounds(20, 235, 150, 30);
@@ -276,21 +277,23 @@ public class Ventana extends JFrame {
         
         tabla.getSelectionModel().addListSelectionListener((e) -> {
             
-            int clave = (int)tabla.getValueAt(tabla.getSelectedRow(), 0);
-            autoSeleccionado = tablaHash[clave].getDato();
-            
-            if(autoSeleccionado != null){
-                campoNombreDatos.setText(autoSeleccionado.getNombre());
-                campoPlacasDatos.setText(autoSeleccionado.getPlacas());
-                campoTiempoDatos.setText(autoSeleccionado.getTiempo() + "");
-                if(autoSeleccionado.getPrecio() != 0){
-                    ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
+            if(tabla.getSelectedRow() > -1){
+                int clave = (int)tabla.getValueAt(tabla.getSelectedRow(), 0);
+                autoSeleccionado = tablaHash[clave].getDato();
+
+                if(autoSeleccionado != null){
+                    campoNombreDatos.setText(autoSeleccionado.getNombre());
+                    campoPlacasDatos.setText(autoSeleccionado.getPlacas());
+                    campoTiempoDatos.setText(autoSeleccionado.getTiempo() + "");
+                    if(autoSeleccionado.getPrecio() != 0){
+                        ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
+                    }
+                }else{
+                    campoNombreDatos.setText("");
+                    campoPlacasDatos.setText("");
+                    campoTiempoDatos.setText("");
+                    ePrecioDatos.setText("");
                 }
-            }else{
-                campoNombreDatos.setText("");
-                campoPlacasDatos.setText("");
-                campoTiempoDatos.setText("");
-                ePrecioDatos.setText("");
             }
         });
         
@@ -299,6 +302,7 @@ public class Ventana extends JFrame {
             autoSeleccionado.setTiempo(tiempo);
             autoSeleccionado.calcularPrecio();
             ePrecioDatos.setText("Total: $" + autoSeleccionado.getPrecio());
+            escribir();
         });
     }
 
