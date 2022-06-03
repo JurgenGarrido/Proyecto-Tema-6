@@ -18,7 +18,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class Ventana extends JFrame {
@@ -80,7 +79,7 @@ public class Ventana extends JFrame {
         iniciarEtiquetas();
         iniciarCuadrosTexto();
         iniciarTabla();
-        leer();   //Reservado para cuando se implementen las acciones de los botones
+        leer();
         eventos();
     }
 
@@ -222,6 +221,9 @@ public class Ventana extends JFrame {
         String[] columnas = new String[]{"Clave", "Valores"};
         modeloT.setColumnIdentifiers(columnas);
         tabla.setModel(modeloT);
+        tabla.getTableHeader().setReorderingAllowed(false);
+        javax.swing.table.TableCellRenderer renderers = tabla.getDefaultRenderer(java.lang.String.class);
+        ((javax.swing.JLabel) renderers).setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         panel.add(scroll);
     }
@@ -250,6 +252,10 @@ public class Ventana extends JFrame {
                     campoNombre.setText("");
                     campoPlacas.setText("");
                     JOptionPane.showMessageDialog(null, "El dato se ha eliminado");
+                    campoNombreDatos.setText("");
+                    campoPlacasDatos.setText("");
+                    campoTiempoDatos.setText("");
+                    ePrecioDatos.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "Dato no encontrado");
                 }
