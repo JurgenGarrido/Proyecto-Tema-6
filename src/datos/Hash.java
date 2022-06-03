@@ -39,9 +39,9 @@ public class Hash implements Serializable{
             }
         } while (j < m && !i);
         if (i) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Elemento insertado con éxito en el indice: " + j);
+            javax.swing.JOptionPane.showMessageDialog(null, "Auto asignado al espacio NO." + (j+1));
         } else {
-            javax.swing.JOptionPane.showMessageDialog(null, "¡Tabla llena!");
+            javax.swing.JOptionPane.showMessageDialog(null, "¡Estacionamiento lleno!");
         }
     }
 
