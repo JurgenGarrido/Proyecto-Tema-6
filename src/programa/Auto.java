@@ -47,6 +47,18 @@ public class Auto {
         this.tiempo = tiempo;
     }
     
+    public static int generarClave(String placas) {
+        placas = placas.replaceAll("-", "");
+        char[] datos = placas.toCharArray();
+        int clave = 0;
+
+        for (char dato : datos) {
+            clave += dato;
+        }
+
+        return clave;
+    }
+    
     //Otros Métodos
     public void calcularPrecio(){
         //Se obtiene el precio dado el tiempo ocupado por el auto (Tiempo en horas)
