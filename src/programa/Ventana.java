@@ -32,10 +32,14 @@ public class Ventana extends JFrame {
     JButton bInsertar = new JButton();
     JButton bBuscar = new JButton();
     JButton bEliminar = new JButton();
+    JButton bCalcPrecio = new JButton();
     
     //Definición de cuadros de texto
     JTextField campoPlacas = new JTextField();
-    JTextField campoNombre = new JTextField();    
+    JTextField campoNombre = new JTextField();
+    JTextField campoPlacasDatos = new JTextField();
+    JTextField campoNombreDatos = new JTextField();
+    JTextField campoTiempoDatos = new JTextField();
 
     public static final int TAM = 101;
 
@@ -93,9 +97,17 @@ public class Ventana extends JFrame {
         bEliminar.setFont(new Font("Roboto", 0, 15));
         bEliminar.setForeground(Color.white);
         panel.add(bEliminar);
+        
+        bCalcPrecio.setText("Calcular Precio");
+        bCalcPrecio.setBounds(10, 285, 170, 50);
+        bCalcPrecio.setBackground(Color.decode("#34495E"));
+        bCalcPrecio.setFont(new Font("Roboto", 0, 20));
+        bCalcPrecio.setForeground(Color.white);
+        panelDatos.add(bCalcPrecio);
     }
 
     private void iniciarEtiquetas() {
+        //ETIQUETAS DE FORMULARIO
         //Etiqueta de Placas
         JLabel ePlacas = new JLabel();
         ePlacas.setText("Placas: ");
@@ -113,9 +125,57 @@ public class Ventana extends JFrame {
         eNombre.setForeground(Color.black);
         eNombre.setFont(new Font("Roboto", 0, 15));
         panel.add(eNombre);
+        
+        //ETIQUETAS DE PANEL DE DATOS
+        //Etiqueta de Descripción
+        JLabel eDescDatos = new JLabel();
+        eDescDatos.setText("Datos del vehiculo");
+        eDescDatos.setBounds(20, 10, 150, 20);
+        eDescDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        eDescDatos.setForeground(Color.white);
+        eDescDatos.setFont(new Font("Roboto", 0, 15));
+        panelDatos.add(eDescDatos);
+        
+        //Etiqueta de Nombre
+        JLabel eNombreDatos = new JLabel();
+        eNombreDatos.setText("Nombre");
+        eNombreDatos.setBounds(20, 45, 150, 20);
+        eNombreDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        eNombreDatos.setForeground(Color.black);
+        eNombreDatos.setFont(new Font("Roboto", 0, 15));
+        panelDatos.add(eNombreDatos);
+        
+        //Etiqueta de Placas
+        JLabel ePlacasDatos = new JLabel();
+        ePlacasDatos.setText("Placas");
+        ePlacasDatos.setBounds(20, 125, 150, 20);
+        ePlacasDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        ePlacasDatos.setForeground(Color.black);
+        ePlacasDatos.setFont(new Font("Roboto", 0, 15));
+        panelDatos.add(ePlacasDatos);
+        
+        //Etiqueta de Placas
+        JLabel eTiempoDatos = new JLabel();
+        eTiempoDatos.setText("Tiempo transcurrido");
+        eTiempoDatos.setBounds(20, 205, 150, 20);
+        eTiempoDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        eTiempoDatos.setForeground(Color.black);
+        eTiempoDatos.setFont(new Font("Roboto", 0, 15));
+        panelDatos.add(eTiempoDatos);
+        
+        //Etiqueta de Placas
+        JLabel ePrecioDatos = new JLabel();
+        ePrecioDatos.setText(""); //Pnatilla al imprimir valor "Total: $ + precio"
+        ePrecioDatos.setBounds(20, 360, 150, 20);
+        ePrecioDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        ePrecioDatos.setForeground(Color.yellow);
+        ePrecioDatos.setFont(new Font("Roboto", Font.BOLD, 20));
+        panelDatos.add(ePrecioDatos);
+
     }
 
     private void iniciarCuadrosTexto() {
+        //CAMPOS DE FORMULARIO
         //Campo de texto para placas
         campoPlacas.setBounds(105, 35, 150, 30);
         panel.add(campoPlacas);
@@ -123,6 +183,27 @@ public class Ventana extends JFrame {
         //Campo de texto para nombre
         campoNombre.setBounds(105, 75, 150, 30);
         panel.add(campoNombre);
+        
+        //CAMPOS DE PANEL DE DATOS
+        //Campo de texto para placas
+        campoPlacasDatos.setBounds(20, 75, 150, 30);
+        campoPlacasDatos.setEditable(false);
+        campoPlacasDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        campoPlacasDatos.setForeground(Color.red);
+        panelDatos.add(campoPlacasDatos);
+
+        //Campo de texto para nombre
+        campoNombreDatos.setBounds(20, 155, 150, 30);
+        campoNombreDatos.setEditable(false);
+        campoNombreDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        campoNombreDatos.setForeground(Color.red);
+        panelDatos.add(campoNombreDatos);
+        
+        //Campo de texto para tiempo
+        campoTiempoDatos.setBounds(20, 235, 150, 30);
+        campoTiempoDatos.setHorizontalAlignment(SwingConstants.CENTER);
+        panelDatos.add(campoTiempoDatos);
+        
     }
 
     private void iniciarTabla() {
