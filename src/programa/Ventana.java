@@ -22,10 +22,20 @@ import javax.swing.table.DefaultTableModel;
 public class Ventana extends JFrame {
 
     private JPanel panel;
+    private JPanel panelDatos;
     private JTable tabla;
     private DefaultTableModel modeloT;
     private Hash[] tablaHash;
     private File archivo;
+    
+    //Definición de botones
+    JButton bInsertar = new JButton();
+    JButton bBuscar = new JButton();
+    JButton bEliminar = new JButton();
+    
+    //Definición de cuadros de texto
+    JTextField campoPlacas = new JTextField();
+    JTextField campoNombre = new JTextField();    
 
     public static final int TAM = 101;
 
@@ -41,6 +51,14 @@ public class Ventana extends JFrame {
 
         panel = new JPanel();
         panel.setLayout(null);
+        
+        //Declaración del panel de datos
+        panelDatos = new JPanel();
+        panelDatos.setLayout(null);
+        
+        panelDatos.setBounds(275, 140, 190, 410);
+        panelDatos.setBackground(Color.GRAY);
+        panel.add(panelDatos);
 
         this.setContentPane(panel);
 
@@ -56,29 +74,25 @@ public class Ventana extends JFrame {
     }
 
     private void iniciarBotones() {
-        JButton bInsertar = new JButton();
         bInsertar.setText("Insertar");
         bInsertar.setBounds(275, 10, 190, 30);
         bInsertar.setBackground(Color.decode("#24A745"));
         bInsertar.setForeground(Color.white);
         bInsertar.setFont(new Font("Roboto", 0, 15));
         panel.add(bInsertar);
-
-        JButton bBuscar = new JButton();
+        
         bBuscar.setText("Buscar");
         bBuscar.setBounds(275, 50, 190, 30);
         bBuscar.setBackground(Color.decode("#FCC00D"));
         bBuscar.setFont(new Font("Roboto", 0, 15));
         panel.add(bBuscar);
-
-        JButton bEliminar = new JButton();
+        
         bEliminar.setText("Eliminar");
         bEliminar.setBounds(275, 90, 190, 30);
         bEliminar.setBackground(Color.decode("#DC3445"));
-        bInsertar.setFont(new Font("Roboto", 0, 15));
+        bEliminar.setFont(new Font("Roboto", 0, 15));
         bEliminar.setForeground(Color.white);
         panel.add(bEliminar);
-
     }
 
     private void iniciarEtiquetas() {
@@ -103,22 +117,19 @@ public class Ventana extends JFrame {
 
     private void iniciarCuadrosTexto() {
         //Campo de texto para placas
-        JTextField campoPlacas = new JTextField();
         campoPlacas.setBounds(105, 35, 150, 30);
         panel.add(campoPlacas);
 
         //Campo de texto para nombre
-        JTextField campoNombre = new JTextField();
         campoNombre.setBounds(105, 75, 150, 30);
         panel.add(campoNombre);
-
     }
 
     private void iniciarTabla() {
         modeloT = new DefaultTableModel();
         tabla = new JTable();
         JScrollPane scroll = new JScrollPane(tabla);
-        scroll.setBounds(5, 140, 250, 410);
+        scroll.setBounds(20, 140, 235, 410);
 
         //Columnas de la tabla
         String[] columnas = new String[]{"Clave", "Valores"};
