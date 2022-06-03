@@ -128,18 +128,6 @@ public class Ventana extends JFrame {
         panel.add(scroll);
     }
 
-    private int generarClave(String placas) {//Tabla 101
-        placas = placas.replaceAll("-", "");
-        char[] datos = placas.toCharArray();
-        int clave = 0;
-
-        for (char dato : datos) {
-            clave += dato;
-        }
-
-        return clave;
-    }
-
     private void leer() {
         if (archivo.exists()) {
             FileInputStream archivoLectura;
