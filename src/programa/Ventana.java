@@ -34,7 +34,7 @@ public class Ventana extends JFrame {
     JButton bBuscar = new JButton();
     JButton bEliminar = new JButton();
     JButton bCalcPrecio = new JButton();
-    
+
     //Definición de cuadros de texto
     JTextField campoPlacas = new JTextField();
     JTextField campoNombre = new JTextField();
@@ -99,7 +99,7 @@ public class Ventana extends JFrame {
         bEliminar.setFont(new Font("Roboto", 0, 15));
         bEliminar.setForeground(Color.white);
         panel.add(bEliminar);
-        
+
         bCalcPrecio.setText("Calcular Precio");
         bCalcPrecio.setBounds(10, 285, 170, 50);
         bCalcPrecio.setBackground(Color.decode("#34495E"));
@@ -127,7 +127,7 @@ public class Ventana extends JFrame {
         eNombre.setForeground(Color.black);
         eNombre.setFont(new Font("Roboto", 0, 15));
         panel.add(eNombre);
-        
+
         //ETIQUETAS DE PANEL DE DATOS
         //Etiqueta de Descripción
         JLabel eDescDatos = new JLabel();
@@ -137,7 +137,7 @@ public class Ventana extends JFrame {
         eDescDatos.setForeground(Color.white);
         eDescDatos.setFont(new Font("Roboto", 0, 15));
         panelDatos.add(eDescDatos);
-        
+
         //Etiqueta de Nombre
         JLabel eNombreDatos = new JLabel();
         eNombreDatos.setText("Nombre");
@@ -146,7 +146,7 @@ public class Ventana extends JFrame {
         eNombreDatos.setForeground(Color.black);
         eNombreDatos.setFont(new Font("Roboto", 0, 15));
         panelDatos.add(eNombreDatos);
-        
+
         //Etiqueta de Placas
         JLabel ePlacasDatos = new JLabel();
         ePlacasDatos.setText("Placas");
@@ -155,7 +155,7 @@ public class Ventana extends JFrame {
         ePlacasDatos.setForeground(Color.black);
         ePlacasDatos.setFont(new Font("Roboto", 0, 15));
         panelDatos.add(ePlacasDatos);
-        
+
         //Etiqueta de Placas
         JLabel eTiempoDatos = new JLabel();
         eTiempoDatos.setText("Tiempo transcurrido");
@@ -164,7 +164,7 @@ public class Ventana extends JFrame {
         eTiempoDatos.setForeground(Color.black);
         eTiempoDatos.setFont(new Font("Roboto", 0, 15));
         panelDatos.add(eTiempoDatos);
-        
+
         //Etiqueta de Placas
         JLabel ePrecioDatos = new JLabel();
         ePrecioDatos.setText(""); //Pnatilla al imprimir valor "Total: $ + precio"
@@ -185,7 +185,7 @@ public class Ventana extends JFrame {
         //Campo de texto para nombre
         campoNombre.setBounds(105, 75, 150, 30);
         panel.add(campoNombre);
-        
+
         //CAMPOS DE PANEL DE DATOS
         //Campo de texto para placas
         campoPlacasDatos.setBounds(20, 75, 150, 30);
@@ -200,12 +200,12 @@ public class Ventana extends JFrame {
         campoNombreDatos.setHorizontalAlignment(SwingConstants.CENTER);
         campoNombreDatos.setForeground(Color.red);
         panelDatos.add(campoNombreDatos);
-        
+
         //Campo de texto para tiempo
         campoTiempoDatos.setBounds(20, 235, 150, 30);
         campoTiempoDatos.setHorizontalAlignment(SwingConstants.CENTER);
         panelDatos.add(campoTiempoDatos);
-        
+
     }
 
     private void iniciarTabla() {
@@ -236,11 +236,11 @@ public class Ventana extends JFrame {
         });
 
         bEliminar.addActionListener((e) -> {
-            
+
         });
 
         bBuscar.addActionListener((e) -> {
-            
+
         });
     }
 
@@ -274,7 +274,7 @@ public class Ventana extends JFrame {
                 for (int i = 0; i < tablaHash.length; i++) {
                     tablaHash[i] = new Hash();
                 }
-                tablaHash[tablaHash.length-1].setEstado(2);
+                tablaHash[tablaHash.length - 1].setEstado(2);
                 escribir();
             } catch (IOException ex) {
                 System.err.println(ex);
@@ -293,8 +293,10 @@ public class Ventana extends JFrame {
             modeloT.setRowCount(0);
             for (int i = 0; i < tablaHash.length; i++) {
                 escribir.writeObject(tablaHash[i]);
-                Object[] fila = {i, tablaHash[i].getDato()};
-                modeloT.addRow(fila);
+                if (i < tablaHash.length - 1) {
+                    Object[] fila = {i, tablaHash[i].getDato()};
+                    modeloT.addRow(fila);
+                }
             }
             escribir.close();
             archivoEscritura.close();
