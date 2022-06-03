@@ -110,6 +110,7 @@ public class Ventana extends JFrame {
 
     private void iniciarTabla() {
         modeloT = new DefaultTableModel();
+        tabla = new JTable();
         JScrollPane scroll = new JScrollPane(tabla);
         scroll.setBounds(5, 140, 250, 410);
         
